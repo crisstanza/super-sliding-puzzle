@@ -1,0 +1,41 @@
+div.box, div.box > div {
+	float: left;
+}
+
+/*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+
+div.box_small  { width: 380px; }
+div.box_big  { width: 760px; }
+
+/*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+
+div.box_small > div.top_left { background: url(../img/top_left.png); width: 50px; height: 50px; }
+div.box_big > div.top_left { background: url(../img/top_left.png); width: 50px; height: 50px; }
+
+div.box_small > div.top { background: url(../img/top.png); width: 280px; height: 50px; }
+div.box_big > div.top { background: url(../img/top.png); width: 660px; height: 50px; }
+
+div.box_small > div.top_right { width: 50px; height: 50px; background: url(../img/top_right.png); }
+div.box_big > div.top_right { width: 50px; height: 50px; background: url(../img/top_right.png); }
+
+/*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+
+div.box_small > div.left { width: 50px; height: 470px; background: url(../img/left.png); }
+div.box_big > div.left { width: 50px; height: 470px; background: url(../img/left.png); }
+
+div.box_small > div.middle { width: 280px; height: 470px; background-color: #FFF; }
+div.box_big > div.middle { width: 660px; height: 470px; background-color: #FFF; }
+
+div.box_small > div.right { width: 50px; height: 470px; background: url(../img/right.png); }
+div.box_big > div.right { width: 50px; height: 470px; background: url(../img/right.png); }
+
+/*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+
+div.box_small > div.bottom_left { width: 50px; height: 50px; background: url(../img/bottom_left.png); }
+div.box_big > div.bottom_left { width: 50px; height: 50px; background: url(../img/bottom_left.png); }
+
+div.box_small > div.bottom { width: 280px; height: 50px; background: url(../img/bottom.png); }
+div.box_big > div.bottom { width: 660px; height: 50px; background: url(../img/bottom.png); }
+
+div.box_small > div.bottom_right { width: 50px; height: 50px; background: url(../img/bottom_right.png); }
+div.box_big > div.bottom_right { width: 50px; height: 50px; background: url(../img/bottom_right.png); }
