@@ -4,8 +4,8 @@
 	var SCREEN_SELECT_LEVEL = 2;
 	var SCREEN_GAME = 3;
 	//
-	var DELAY_SCREEN_CHANGE = 1000 * 1;
-	var DELAY_OBJECTS_CHANGE = 250 * 1;
+	var DELAY_SCREEN_CHANGE = 2000 * 1;
+	var DELAY_OBJECTS_CHANGE = 300 * 1;
 	//
 	var logger = {
 		log: false,
@@ -54,6 +54,19 @@
 		}
 	}
 	//
+	function animateButtons(screen) {
+		//
+		logger.console.log('animateButtons('+screen+')');
+		//
+		var panelButtons = $('#screen_1_buttons');
+		//
+		if ( screen == SCREEN_OPENING ) {
+			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE * 2);
+		} else 	if ( screen == SCREEN_SELECT_LEVEL ) {
+			panelButtons.fadeIn(DELAY_OBJECTS_CHANGE * 2);
+		}
+	}
+	//
 	function goToScreen(screen) {
 		//
 		logger.console.log('goToScreen('+screen+')');
@@ -65,7 +78,7 @@
 		} else if ( screen == SCREEN_SELECT_LEVEL ) {
 			animateLogo(screen);
 			animateTitle(screen);
-			// setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
+			animateButtons(screen);
 		}
 	}
 	//
@@ -73,7 +86,9 @@
 		//
 		logger.console.log('init()');
 		//
-		goToScreen(SCREEN_OPENING);
+		// goToScreen(SCREEN_OPENING);
+		// setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
+		setTimeout(function() { goToScreen(SCREEN_OPENING); }, 0 );
 	}
 	//
 	$(document).ready(init);
