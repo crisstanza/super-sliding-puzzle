@@ -4,8 +4,8 @@
 	var SCREEN_SELECT_LEVEL = 2;
 	var SCREEN_GAME = 3;
 	//
-	var DELAY_SCREEN_CHANGE = 2000 * 1;
-	var DELAY_OBJECTS_CHANGE = 300 * 1;
+	var DELAY_SCREEN_CHANGE = 1000 * 1;
+	var DELAY_OBJECTS_CHANGE = 400 * 1;
 	//
 	var logger = {
 		log: false,
@@ -35,7 +35,7 @@
 			);		
 		} else if ( screen == SCREEN_SELECT_LEVEL ) {
 			imgLogo.animate(
-				{ left: 32, top: 40, width: 642/5, height: 311/5 },
+				{ left: 50, top: 55, width: 642/5, height: 311/5 },
 				{ duration: DELAY_OBJECTS_CHANGE }
 			);
 		}
@@ -87,8 +87,8 @@
 		logger.console.log('init()');
 		//
 		// goToScreen(SCREEN_OPENING);
-		// setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
-		setTimeout(function() { goToScreen(SCREEN_OPENING); }, 0 );
+		setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
+		// setTimeout(function() { goToScreen(SCREEN_OPENING); }, 0 );
 	}
 	//
 	$(document).ready(init);
