@@ -1,0 +1,24 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #F7F7F7;
+	/* border: 1px solid LightGrey; */
+	/* width: 1140px; */
+}
+
+#img_logo {
+	position: absolute;
+	width: 642px;
+	height: 311px;
+	left: 65px;
+	top: -125px;
+}
+
+#img_title {
+	position: absolute;
+	width: 364px;
+	height: 67px;
+	left: 125px;
+	top: 80px;
+	display: none;
+}
