@@ -6,6 +6,10 @@ body {
 	/* width: 1140px; */
 }
 
+a {
+	text-decoration: none;
+}
+
 #img_logo {
 	position: absolute;
 	width: 642px;
@@ -34,7 +38,8 @@ div#screen_1_buttons {
 a#screen_1_button_1, a#screen_1_button_2, a#screen_1_button_3 {
 	float: left;
 	background-repeat: no-repeat;
-	border: 4px solid transparent;
+	box-shadow: 0 0 3px 3px #888;
+	border: 1px solid #444;
 }
 a#screen_1_button_1, a#screen_1_button_2 {
 	width: 100px;
@@ -47,11 +52,18 @@ a#screen_1_button_3 {
 	margin-left: 10%;
 }
 
-a#screen_1_button_1 { background-image: url(../img/level_1_thumb.png); }
-a#screen_1_button_2 { background-image: url(../img/level_2_thumb.png); }
-a#screen_1_button_3 { background-image: url(../img/level_3_thumb.png); }
+a#screen_1_button_1 { background-image: url(../img/level_1_thumb_off.png); }
+a#screen_1_button_2 { background-image: url(../img/level_2_thumb_off.png); }
+a#screen_1_button_3 { background-image: url(../img/level_3_thumb_off.png); }
 
-a#screen_1_button_1:Hover, a#screen_1_button_2:Hover, a#screen_1_button_3:Hover { border: 4px solid red; }
+a#screen_1_button_1:Hover { background-image: url(../img/level_1_thumb.png); }
+a#screen_1_button_2:Hover { background-image: url(../img/level_2_thumb.png); }
+a#screen_1_button_3:Hover { background-image: url(../img/level_3_thumb.png); }
+
+a#screen_1_button_1:Hover, a#screen_1_button_2:Hover, a#screen_1_button_3:Hover {
+	box-shadow: 0 0 6px 6px #222;
+	/* border: 4px solid red; */
+}
 div#screen_1_button_1, div#screen_1_button_2, div#screen_1_button_3 { float: left; text-align: center; width: 230px; }
 
 div#screen_1_button_1 { padding-top: 60px; }
