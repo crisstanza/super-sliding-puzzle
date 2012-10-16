@@ -50,7 +50,6 @@
 		var imgTitle = $('#img_title');
 		var imgLogo = $('#img_logo');
 		var panelButtons = $('#screen_1_buttons');
-		var mainBoard = $('#main_board');
 		var mainBack = $('#main_back');
 		//
 		if ( screen == SCREEN_OPENING ) {
@@ -63,13 +62,15 @@
 			imgTitle.fadeIn(DELAY_OBJECTS_CHANGE);
 			imgLogo.fadeIn(DELAY_OBJECTS_CHANGE);
 			panelButtons.fadeIn(DELAY_OBJECTS_CHANGE * 2);
-			mainBoard.fadeOut(DELAY_OBJECTS_CHANGE);
+			$('#main_board_1').fadeOut(DELAY_OBJECTS_CHANGE);
+			$('#main_board_2').fadeOut(DELAY_OBJECTS_CHANGE);
+			$('#main_board_3').fadeOut(DELAY_OBJECTS_CHANGE);
 			mainBack.fadeOut(DELAY_OBJECTS_CHANGE);
 		} else if ( screen == SCREEN_GAME ) {
 			imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
 			imgLogo.fadeOut(DELAY_OBJECTS_CHANGE);
 			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE);
-			mainBoard.fadeIn(DELAY_OBJECTS_CHANGE);
+			$('#main_board_'+CURRENT_LEVEL).fadeIn(DELAY_OBJECTS_CHANGE);
 			mainBack.fadeIn(DELAY_OBJECTS_CHANGE);
 		}
 	}
