@@ -7,6 +7,8 @@
 	var DELAY_SCREEN_CHANGE = 1000 * 1;
 	var DELAY_OBJECTS_CHANGE = 400 * 1;
 	//
+	var CURRENT_LEVEL = 0;
+	//
 	var logger = {
 		log: false,
 		console: {
@@ -41,50 +43,56 @@
 		}
 	}
 	//
-	function animateTitle(screen) {
-		//
-		logger.console.log('animateTitle('+screen+')');
-		//
-		var imgTitle = $('#img_title');
-		//
-		if ( screen == SCREEN_OPENING ) {
-			imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
-		} else 	if ( screen == SCREEN_SELECT_LEVEL ) {
-			imgTitle.fadeIn(DELAY_OBJECTS_CHANGE);
-		}
-	}
-	//
-	function animateButtons(screen) {
-		//
-		logger.console.log('animateButtons('+screen+')');
-		//
-		var panelButtons = $('#screen_1_buttons');
-		//
-		if ( screen == SCREEN_OPENING ) {
-			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE * 2);
-		} else 	if ( screen == SCREEN_SELECT_LEVEL ) {
-			panelButtons.fadeIn(DELAY_OBJECTS_CHANGE * 2);
-		}
-	}
-	//
 	function goToScreen(screen) {
 		//
 		logger.console.log('goToScreen('+screen+')');
 		//
+		var imgTitle = $('#img_title');
+		var imgLogo = $('#img_logo');
+		var panelButtons = $('#screen_1_buttons');
+		var mainBoard = $('#main_board');
+		var mainBack = $('#main_back');
+		//
 		if ( screen == SCREEN_OPENING ) {
 			animateLogo(screen);
-			animateTitle(screen);
+			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE * 2);
+			imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
 			setTimeout(function() { goToScreen(SCREEN_SELECT_LEVEL); }, DELAY_SCREEN_CHANGE );
 		} else if ( screen == SCREEN_SELECT_LEVEL ) {
 			animateLogo(screen);
-			animateTitle(screen);
-			animateButtons(screen);
+			imgTitle.fadeIn(DELAY_OBJECTS_CHANGE);
+			imgLogo.fadeIn(DELAY_OBJECTS_CHANGE);
+			panelButtons.fadeIn(DELAY_OBJECTS_CHANGE * 2);
+			mainBoard.fadeOut(DELAY_OBJECTS_CHANGE);
+			mainBack.fadeOut(DELAY_OBJECTS_CHANGE);
+		} else if ( screen == SCREEN_GAME ) {
+			imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
+			imgLogo.fadeOut(DELAY_OBJECTS_CHANGE);
+			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE);
+			mainBoard.fadeIn(DELAY_OBJECTS_CHANGE);
+			mainBack.fadeIn(DELAY_OBJECTS_CHANGE);
 		}
 	}
 	//
 	function init() {
 		//
 		logger.console.log('init()');
+		//
+		var links = $('#screen_1_buttons a');
+		var length = links.length - 1;
+		for ( var i = length ; i >=0 ; i-- ) {
+			var link = $(links[i]);
+			link.click(function(evt) {
+				CURRENT_LEVEL = $(evt.target).attr('href').split('#')[1];
+				goToScreen(SCREEN_GAME);
+			});
+		}
+		//
+		var linkMainBack = $('#main_back');
+		linkMainBack.click(function(evt) {
+			CURRENT_LEVEL = $(evt.target).attr('href').split('#')[1];
+			goToScreen(SCREEN_SELECT_LEVEL);
+		});
 		//
 		// goToScreen(SCREEN_OPENING);
 		setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
