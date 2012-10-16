@@ -67,13 +67,28 @@ div#screen_1_button_1 { padding-top: 60px; }
 div#screen_1_button_2 { padding-top: 0; }
 div#screen_1_button_3 { padding-top: 30px; }
 
-div#main_board {
+div#main_board_1, div#main_board_2, div#main_board_3 {
 	display: none;
+	margin: auto;
+	box-shadow: 0 0 6px 6px #888;
+}
+
+div#main_board_1 {
+	width: 398px;
+	height: 398px;
+	background-image: url(../img/level_1.png);
+}
+
+div#main_board_2 {
+	width: 398px;
+	height: 398px;
+	background-image: url(../img/level_2.png);
+}
+
+div#main_board_3 {
 	width: 640px;
 	height: 400px;
 	background-image: url(../img/level_3.png);
-	margin: auto;
-	box-shadow: 0 0 6px 6px #888;
 }
 
 a#main_back {
