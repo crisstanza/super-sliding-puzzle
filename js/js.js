@@ -1,3 +1,38 @@
+function Game() {
+}
+//
+Game._POSITIONS = [
+	[0, 0], [0, 1], [0, 2], [0, 3],
+	[1, 0], [1, 1], [1, 2], [1, 3],
+	[2, 0], [2, 1], [2, 2], [2, 3],
+	[3, 0], [3, 1], [3, 2], [3, 3]
+];
+//
+Game._N = 4;
+Game._BACKGROUND_POSITIONS = [
+	[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0],
+	[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1],
+	[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2],
+	[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3]
+];
+//
+Game.getInitialState = function() {
+	var url = document.location.href;
+	var x = 'estadoAtual=';
+	var p = url.indexOf(x);
+	return
+		p >= 0 ?
+			url.substring(p + x.length).split(',');
+		:
+			[
+				'00', '01', '02', '03', 
+				'04', '05', '06', '07', 
+				'08', '09', '10', '11', 
+				'12', '13', '14', '15'
+			]
+	;
+};
+//
 (function() {
 	//
 	var SCREEN_OPENING = 1;
@@ -67,11 +102,30 @@
 			$('#main_board_3').fadeOut(DELAY_OBJECTS_CHANGE);
 			mainBack.fadeOut(DELAY_OBJECTS_CHANGE);
 		} else if ( screen == SCREEN_GAME ) {
+			var currentBoard = $('#main_board_'+CURRENT_LEVEL);
+			//
 			imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
 			imgLogo.fadeOut(DELAY_OBJECTS_CHANGE);
 			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE);
-			$('#main_board_'+CURRENT_LEVEL).fadeIn(DELAY_OBJECTS_CHANGE);
+			currentBoard.fadeIn(DELAY_OBJECTS_CHANGE);
+			startBoard(currentBoard);
 			mainBack.fadeIn(DELAY_OBJECTS_CHANGE);
+		}
+	}
+	//
+	function startBoard() {
+		//
+		logger.console.log('startBoard()');
+		//
+		Game.currentState = Game.getInitialState();
+		var x = 0;
+		for ( var i = 0 ; i < Game._N ; i++ ) {
+			for ( var j = 0 ; j < Game._N ; j++ ) {
+				var character = Game.currentState.charAt(x);
+				var visibleCharacter = character;
+				// visibleCharacter = '';
+				var backgroundPosition = Game._BACKGROUND_POSITIONS[character];
+			}
 		}
 	}
 	//
