@@ -10,12 +10,26 @@ Game._POSITIONS = [
 //
 Game.currentState = undefined;
 Game._SIDE = 100;
-Game._N = 4;
+Game._N = [4, 5, 6];
 Game._BACKGROUND_POSITIONS = [
-	[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0],
-	[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1],
-	[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2],
-	[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3]
+	[
+		[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0],
+		[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1],
+		[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2],
+		[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3]
+	],
+	[
+		[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0], [-Game._SIDE*4, +Game._SIDE*0],
+		[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1], [-Game._SIDE*4, +Game._SIDE*1],
+		[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2], [-Game._SIDE*4, +Game._SIDE*2],
+		[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3], [-Game._SIDE*4, +Game._SIDE*3]
+	],
+	[
+		[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0], [-Game._SIDE*4, +Game._SIDE*0], [-Game._SIDE*5, +Game._SIDE*0],
+		[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1], [-Game._SIDE*4, +Game._SIDE*1], [-Game._SIDE*5, +Game._SIDE*1],
+		[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2], [-Game._SIDE*4, +Game._SIDE*2], [-Game._SIDE*5, +Game._SIDE*2],
+		[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3], [-Game._SIDE*4, +Game._SIDE*3], [-Game._SIDE*5, +Game._SIDE*3]
+	]
 ];
 //
 Game.getInitialState = function() {
@@ -27,10 +41,24 @@ Game.getInitialState = function() {
 			url.substring(p + x.length).split(',')
 		:
 			[
-				'03', '02', '01', '00', 
-				'04', '05', '06', '07', 
-				'08', '09', '10', '11', 
-				'12', '13', '14', '15'
+				[
+					'00', '01', '02', '03',
+					'04', '05', '06', '07',
+					'08', '09', '10', '11',
+					'12', '13', '14', '15'
+				],
+				[
+					'00', '01', '02', '03', '04',
+					'05', '06', '07', '08', '09',
+					'10', '11', '12', '13', '14',
+					'15', '16', '17', '18', '19'
+				],
+				[
+					'00', '01', '02', '03', '04', '05',
+					'06', '07', '08', '09', '10', '11',
+					'12', '13', '14', '15', '16', '17',
+					'18', '19', '20', '21', '22', '23'
+				]
 			]
 	);
 };
@@ -120,18 +148,18 @@ Game.getInitialState = function() {
 		var currentBoard = $('#main_board_'+CURRENT_LEVEL);
 		currentBoard.html('');
 		//
-		Game.currentState = Game.getInitialState();
+		Game.currentState = Game.getInitialState()[CURRENT_LEVEL - 1];
 		var x = 0;
-		for ( var i = 0 ; i < Game._N ; i++ ) {
-			for ( var j = 0 ; j < Game._N ; j++ ) {
+		for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1] ; i++ ) {
+			for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1] ; j++ ) {
 				var character = new Number(Game.currentState[x]);
 				var visibleCharacter = character;
 				visibleCharacter = '';
-				var backgroundPosition = Game._BACKGROUND_POSITIONS[character];
+				var backgroundPosition = Game._BACKGROUND_POSITIONS[CURRENT_LEVEL - 1][character];
 				if ( character == 0 ) {
-					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" class="PieceEmpty '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" class="PieceEmpty_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
 				} else {
-					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="move(this)" class="Piece '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="move(this)" class="Piece Piece_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
 				}
 				x++;
 			}
