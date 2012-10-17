@@ -41,26 +41,15 @@ a.screen_1_button_1, a.screen_1_button_2, a.screen_1_button_3 {
 	box-shadow: 0 0 3px 3px #888;
 	border: 1px solid #444;
 }
-a.screen_1_button_1, a.screen_1_button_2 {
-	width: 100px;
-	height: 100px;
-	margin-left: 27%;
-}
-a.screen_1_button_3 {
-	width: 175px;
-	height: 100px;
-	margin-left: 10%;
-}
-
-a.screen_1_button_1 { background-image: url(../img/level_1_thumb_off.png); }
-a.screen_1_button_2 { background-image: url(../img/level_2_thumb_off.png); }
-a.screen_1_button_3 { background-image: url(../img/level_3_thumb_off.png); }
+a.screen_1_button_1 { width: 100px; height: 100px; margin-left: 28%; background-image: url(../img/level_1_thumb_off.png); }
+a.screen_1_button_2 { width: 125px; height: 100px; margin-left: 24%; background-image: url(../img/level_2_thumb_off.png); }
+a.screen_1_button_3 { width: 150px; height: 100px; margin-left: 17%; background-image: url(../img/level_3_thumb_off.png); }
 
 a.screen_1_button_1:Hover { background-image: url(../img/level_1_thumb.png); }
 a.screen_1_button_2:Hover { background-image: url(../img/level_2_thumb.png); }
 a.screen_1_button_3:Hover { background-image: url(../img/level_3_thumb.png); }
 
-a.screen_1_button_1:Hover, a.screen_1_button_2:Hover, a.screen_1_button_3:Hover { box-shadow: 0 0 6px 6px #222; }
+a.screen_1_button_1:Hover, a.screen_1_button_2:Hover, a.screen_1_button_3:Hover { box-shadow: 0 0 6px 6px #444; }
 div#screen_1_button_1, div#screen_1_button_2, div#screen_1_button_3 { float: left; text-align: center; width: 230px; }
 
 div#screen_1_button_1 { padding-top: 60px; }
@@ -74,19 +63,19 @@ div#main_board_1, div#main_board_2, div#main_board_3 {
 }
 
 div#main_board_1 {
-	width: 398px;
-	height: 398px;
-	background-image: url(../img/level_1.png);
+	width: 400px;
+	height: 400px;
+	/* background-image: url(../img/level_1.png); */
 }
 
 div#main_board_2 {
-	width: 398px;
-	height: 398px;
+	width: 500px;
+	height: 400px;
 	background-image: url(../img/level_2.png);
 }
 
 div#main_board_3 {
-	width: 640px;
+	width: 600px;
 	height: 400px;
 	background-image: url(../img/level_3.png);
 }
@@ -101,4 +90,25 @@ a#main_back {
 }
 a#main_back:Hover {
 	background-image: url(../img/back.png);
+}
+
+div.Piece, div.PieceEmpty {
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: -1px;
+}
+div.Piece {
+	cursor: hand;
+	cursor: pointer;
+	background-image: url(../img/level_1.png);	
+}
+div.PieceEmpty {
+	background-image: url(../img/level_1_off.png);	
+}
+div.PieceRight {
+	border: 1px solid green;
+}
+div.PieceWrong {
+	border: 1px solid red;
 }

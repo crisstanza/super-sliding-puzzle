@@ -1,3 +1,40 @@
+function Game() {
+}
+//
+Game._POSITIONS = [
+	[0, 0], [0, 1], [0, 2], [0, 3],
+	[1, 0], [1, 1], [1, 2], [1, 3],
+	[2, 0], [2, 1], [2, 2], [2, 3],
+	[3, 0], [3, 1], [3, 2], [3, 3]
+];
+//
+Game.currentState = undefined;
+Game._SIDE = 100;
+Game._N = 4;
+Game._BACKGROUND_POSITIONS = [
+	[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0],
+	[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1],
+	[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2],
+	[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3]
+];
+//
+Game.getInitialState = function() {
+	var url = document.location.href;
+	var x = 'currentState=';
+	var p = url.indexOf(x);
+	return (
+		p >= 0 ?
+			url.substring(p + x.length).split(',')
+		:
+			[
+				'03', '02', '01', '00', 
+				'04', '05', '06', '07', 
+				'08', '09', '10', '11', 
+				'12', '13', '14', '15'
+			]
+	);
+};
+//
 (function() {
 	//
 	var SCREEN_OPENING = 1;
@@ -71,7 +108,33 @@
 			imgLogo.fadeOut(DELAY_OBJECTS_CHANGE);
 			panelButtons.fadeOut(DELAY_OBJECTS_CHANGE);
 			$('#main_board_'+CURRENT_LEVEL).fadeIn(DELAY_OBJECTS_CHANGE);
+			startBoard();
 			mainBack.fadeIn(DELAY_OBJECTS_CHANGE);
+		}
+	}
+	//
+	function startBoard() {
+		//
+		logger.console.log('startBoard()');
+		//
+		var currentBoard = $('#main_board_'+CURRENT_LEVEL);
+		currentBoard.html('');
+		//
+		Game.currentState = Game.getInitialState();
+		var x = 0;
+		for ( var i = 0 ; i < Game._N ; i++ ) {
+			for ( var j = 0 ; j < Game._N ; j++ ) {
+				var character = new Number(Game.currentState[x]);
+				var visibleCharacter = character;
+				visibleCharacter = '';
+				var backgroundPosition = Game._BACKGROUND_POSITIONS[character];
+				if ( character == 0 ) {
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" class="PieceEmpty '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+				} else {
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="move(this)" class="Piece '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+				}
+				x++;
+			}
 		}
 	}
 	//
