@@ -65,7 +65,7 @@ div#main_board_1, div#main_board_2, div#main_board_3 {
 div#main_board_1 {
 	width: 400px;
 	height: 400px;
-	background-image: url(../img/level_1.png);
+	/* background-image: url(../img/level_1.png); */
 }
 
 div#main_board_2 {
@@ -90,4 +90,25 @@ a#main_back {
 }
 a#main_back:Hover {
 	background-image: url(../img/back.png);
+}
+
+div.Piece, div.PieceEmpty {
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: -1px;
+}
+div.Piece {
+	cursor: hand;
+	cursor: pointer;
+	background-image: url(../img/level_1.png);	
+}
+div.PieceEmpty {
+	background-image: url(../img/level_1_off.png);	
+}
+div.PieceRight {
+	border: 1px solid green;
+}
+div.PieceWrong {
+	border: 1px solid red;
 }
