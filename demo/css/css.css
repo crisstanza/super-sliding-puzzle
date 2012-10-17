@@ -71,13 +71,13 @@ div#main_board_1 {
 div#main_board_2 {
 	width: 500px;
 	height: 400px;
-	background-image: url(../img/level_2.png);
+	/* background-image: url(../img/level_2.png); */
 }
 
 div#main_board_3 {
 	width: 600px;
 	height: 400px;
-	background-image: url(../img/level_3.png);
+	/* background-image: url(../img/level_3.png); */
 }
 
 a#main_back {
@@ -92,7 +92,7 @@ a#main_back:Hover {
 	background-image: url(../img/back.png);
 }
 
-div.Piece, div.PieceEmpty {
+div.Piece, div.PieceEmpty_1, div.PieceEmpty_2, div.PieceEmpty_3 {
 	float: left;
 	width: 100px;
 	height: 100px;
@@ -103,9 +103,14 @@ div.Piece {
 	cursor: pointer;
 	background-image: url(../img/level_1.png);	
 }
-div.PieceEmpty {
-	background-image: url(../img/level_1_off.png);	
-}
+div.Piece_1 { background-image: url(../img/level_1.png); }
+div.Piece_2 { background-image: url(../img/level_2.png); }
+div.Piece_3 { background-image: url(../img/level_3.png); }
+
+div.PieceEmpty_1 { background-image: url(../img/level_1_off.png); }
+div.PieceEmpty_2 { background-image: url(../img/level_2_off.png); }
+div.PieceEmpty_3 { background-image: url(../img/level_3_off.png); }
+
 div.PieceRight {
 	border: 1px solid green;
 }
