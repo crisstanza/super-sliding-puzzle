@@ -96,7 +96,8 @@ div.Piece, div.PieceEmpty_1, div.PieceEmpty_2, div.PieceEmpty_3 {
 	float: left;
 	width: 100px;
 	height: 100px;
-	margin: -1px;
+	/* margin: -1px; */
+	position: relative;
 }
 div.Piece {
 	cursor: hand;
@@ -112,8 +113,8 @@ div.PieceEmpty_2 { background-image: url(../img/level_2_off.png); }
 div.PieceEmpty_3 { background-image: url(../img/level_3_off.png); }
 
 div.PieceRight {
-	border: 1px solid green;
+	/* border: 1px solid rgba(0, 255, 0, 0.2); */
 }
 div.PieceWrong {
-	border: 1px solid red;
+	/* border: 1px solid rgba(255, 0, 0, 0.2); */
 }

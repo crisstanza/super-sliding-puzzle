@@ -1,69 +1,316 @@
-function Game() {
-}
-//
-Game._POSITIONS = [
-	[0, 0], [0, 1], [0, 2], [0, 3],
-	[1, 0], [1, 1], [1, 2], [1, 3],
-	[2, 0], [2, 1], [2, 2], [2, 3],
-	[3, 0], [3, 1], [3, 2], [3, 3]
-];
-//
-Game.currentState = undefined;
-Game._SIDE = 100;
-Game._N = [4, 5, 6];
-Game._BACKGROUND_POSITIONS = [
-	[
-		[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0],
-		[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1],
-		[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2],
-		[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3]
-	],
-	[
-		[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0], [-Game._SIDE*4, +Game._SIDE*0],
-		[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1], [-Game._SIDE*4, +Game._SIDE*1],
-		[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2], [-Game._SIDE*4, +Game._SIDE*2],
-		[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3], [-Game._SIDE*4, +Game._SIDE*3]
-	],
-	[
-		[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0], [-Game._SIDE*4, +Game._SIDE*0], [-Game._SIDE*5, +Game._SIDE*0],
-		[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1], [-Game._SIDE*4, +Game._SIDE*1], [-Game._SIDE*5, +Game._SIDE*1],
-		[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2], [-Game._SIDE*4, +Game._SIDE*2], [-Game._SIDE*5, +Game._SIDE*2],
-		[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3], [-Game._SIDE*4, +Game._SIDE*3], [-Game._SIDE*5, +Game._SIDE*3]
-	]
-];
-//
-Game.getInitialState = function() {
-	var url = document.location.href;
-	var x = 'currentState=';
-	var p = url.indexOf(x);
-	return (
-		p >= 0 ?
-			url.substring(p + x.length).split(',')
-		:
-			[
-				[
-					'00', '01', '02', '03',
-					'04', '05', '06', '07',
-					'08', '09', '10', '11',
-					'12', '13', '14', '15'
-				],
-				[
-					'00', '01', '02', '03', '04',
-					'05', '06', '07', '08', '09',
-					'10', '11', '12', '13', '14',
-					'15', '16', '17', '18', '19'
-				],
-				[
-					'00', '01', '02', '03', '04', '05',
-					'06', '07', '08', '09', '10', '11',
-					'12', '13', '14', '15', '16', '17',
-					'18', '19', '20', '21', '22', '23'
-				]
-			]
-	);
-};
-//
 (function() {
+	//
+	function Game() {
+	}
+	//
+	Game._POSITIONS = [
+		[
+			[0, 0], [0, 1], [0, 2], [0, 3],
+			[1, 0], [1, 1], [1, 2], [1, 3],
+			[2, 0], [2, 1], [2, 2], [2, 3],
+			[3, 0], [3, 1], [3, 2], [3, 3]
+		],
+		[
+			[0, 0], [0, 1], [0, 2], [0, 3], [0, 4],
+			[1, 0], [1, 1], [1, 2], [1, 3], [1, 4],
+			[2, 0], [2, 1], [2, 2], [2, 3], [2, 4],
+			[3, 0], [3, 1], [3, 2], [3, 3], [3, 4]
+		],
+		[
+			[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5],
+			[1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5],
+			[2, 0], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5],
+			[3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5],
+		]
+	];
+	//
+	Game.gameOver = undefined;
+	Game.currentState = undefined;
+	Game.currentStateMatrix = [
+		[
+			[ [], [], [], [] ],
+			[ [], [], [], [] ],
+			[ [], [], [], [] ],
+			[ [], [], [], [] ]
+		],
+		[
+			[ [], [], [], [], [] ],
+			[ [], [], [], [], [] ],
+			[ [], [], [], [], [] ],
+			[ [], [], [], [], [] ]
+		],
+		[
+			[ [], [], [], [], [], [] ],
+			[ [], [], [], [], [], [] ],
+			[ [], [], [], [], [], [] ],
+			[ [], [], [], [], [], [] ]
+		]
+	];
+	Game._STEP = 25;
+	Game._SPEED_CONTROL = 10;
+	Game._SIDE = 100;
+	Game._N = [
+		[4, 4], [5, 4], [6, 4]
+	];
+	Game._BACKGROUND_POSITIONS = [
+		[
+			[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0],
+			[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1],
+			[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2],
+			[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3]
+		],
+		[
+			[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0], [-Game._SIDE*4, +Game._SIDE*0],
+			[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1], [-Game._SIDE*4, -Game._SIDE*1],
+			[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2], [-Game._SIDE*4, -Game._SIDE*2],
+			[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3], [-Game._SIDE*4, -Game._SIDE*3]
+		],
+		[
+			[Game._SIDE*0, +Game._SIDE*0], [-Game._SIDE*1, +Game._SIDE*0], [-Game._SIDE*2, +Game._SIDE*0], [-Game._SIDE*3, +Game._SIDE*0], [-Game._SIDE*4, +Game._SIDE*0], [-Game._SIDE*5, +Game._SIDE*0],
+			[Game._SIDE*0, -Game._SIDE*1], [-Game._SIDE*1, -Game._SIDE*1], [-Game._SIDE*2, -Game._SIDE*1], [-Game._SIDE*3, -Game._SIDE*1], [-Game._SIDE*4, -Game._SIDE*1], [-Game._SIDE*5, -Game._SIDE*1],
+			[Game._SIDE*0, -Game._SIDE*2], [-Game._SIDE*1, -Game._SIDE*2], [-Game._SIDE*2, -Game._SIDE*2], [-Game._SIDE*3, -Game._SIDE*2], [-Game._SIDE*4, -Game._SIDE*2], [-Game._SIDE*5, -Game._SIDE*2],
+			[Game._SIDE*0, -Game._SIDE*3], [-Game._SIDE*1, -Game._SIDE*3], [-Game._SIDE*2, -Game._SIDE*3], [-Game._SIDE*3, -Game._SIDE*3], [-Game._SIDE*4, -Game._SIDE*3], [-Game._SIDE*5, -Game._SIDE*3]
+		]
+	];
+	//
+	Game.getInitialState = function() {
+		var url = document.location.href;
+		var x = 'currentState=';
+		var p = url.indexOf(x);
+		return (
+			p >= 0 ?
+				url.substring(p + x.length).split(',')
+			:
+				[
+					[
+						'00', '01', '02', '03',
+						'04', '05', '06', '07',
+						'08', '09', '10', '11',
+						'12', '13', '14', '15'
+					],
+					[
+						'00', '01', '02', '03', '04',
+						'05', '06', '07', '08', '09',
+						'10', '11', '12', '13', '14',
+						'15', '16', '17', '18', '19'
+					],
+					[
+						'00', '01', '02', '03', '04', '05',
+						'06', '07', '08', '09', '10', '11',
+						'12', '13', '14', '15', '16', '17',
+						'18', '19', '20', '21', '22', '23'
+					]
+				]
+		);
+	};
+	//
+	Game.move = function(piece) {
+		//
+		logger.console.log('Game.move('+piece+')');
+		//
+		//
+		//
+		if ( ! Game.gameOver ) {
+			var x = 0;
+			for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1][1] ; i++ ) {
+				for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1][0] ; j++ ) {
+					var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+					Game.currentStateMatrix[CURRENT_LEVEL - 1][i][j] = character;
+					x++;
+				}
+			}
+			//
+			var position = Game._POSITIONS[CURRENT_LEVEL - 1][piece.getAttribute('data-p')];
+			var row = position[0];
+			var column = position[1];
+			//
+			if ( row > 0 ) {
+				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row - 1][column] == 0 ) {
+					moveUpMatrix(row, column);
+					moveP(piece.id);
+					moveUp(piece.id, 0);
+					moveDown('_0', 0);
+				}
+			}
+			if ( row < (Game._N - 1) ) {
+				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row + 1][column] == 0 ) {
+					moveDownMatrix(row, column);
+					moveP(piece.id);
+					moveDown(piece.id, 0);
+					moveUp('_0', 0);
+				}
+			}
+			if ( column > 0 ) {
+				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column - 1] == 0 ) {
+					moveLeftMatrix(row, column);
+					moveP(piece.id);
+					moveLeft(piece.id, 0);
+					moveRight('_0', 0);
+				}
+			}
+			if ( column < (Game._N - 1) ) {
+				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column + 1] == 0 ) {
+					moveRightMatrix(row, column);
+					moveP(piece.id);
+					moveRight(piece.id, 0);
+					moveLeft('_0', 0);
+				}
+			}
+			//
+			var newCurrentState = [];
+			for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1][1] ; i++ ) {
+				for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1][0] ; j++ ) {
+					var character = Game.currentStateMatrix[CURRENT_LEVEL - 1][i][j];
+					newCurrentState.push(character);
+				}
+			}
+			Game.currentState[CURRENT_LEVEL - 1] = newCurrentState;
+			if ( Game.currentState[CURRENT_LEVEL - 1] == '012345678' ) {
+				Game.gameOver = true;
+				Game.end();
+			}
+		}
+	};
+	//
+	function moveLeft(id, d) {
+		var piece = $('#'+id);
+		d += Game._STEP;
+		piece[0].style.left = (px2number(piece[0].style.left) - Game._STEP) + 'px';
+		if ( d < Game._SIDE ) {
+			setTimeout(
+				function() {
+					moveLeft(id, d);
+				}, Game._SPEED_CONTROL
+			);
+		} else {
+			var x = parseInt(id.substring(1));
+			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			if ( character == x ) {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceRight');
+			} else {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceWrong');
+			}
+		}
+	}
+	function moveRight(id, d) {
+		var piece = $('#'+id);
+		d += Game._STEP;
+		piece[0].style.left = (px2number(piece[0].style.left) + Game._STEP) + 'px';
+		if ( d < Game._SIDE ) {
+			setTimeout(
+				function() {
+					moveRight(id, d);
+				}, Game._SPEED_CONTROL
+			);
+		} else {
+			var x = parseInt(id.substring(1));
+			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			if ( character == x ) {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceRight');
+			} else {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceWrong');
+			}
+		}
+	}
+	function moveUp(id, d) {
+		//
+		logger.console.log('moveUp('+id+', '+d+')');
+		//
+		var piece = $('#'+id);
+		d += Game._STEP;
+		piece[0].style.top = (px2number(piece[0].style.top) - Game._STEP) + 'px';
+		if ( d < Game._SIDE ) {
+			setTimeout(
+				function() {
+					moveUp(id, d);
+				}, Game._SPEED_CONTROL
+			);
+		} else {
+			var x = parseInt(id.substring(1));
+			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			if ( character == x ) {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceRight');
+			} else {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceWrong');
+			}
+		}
+	}
+	function moveDown(id, d) {
+		var piece = $('#'+id);
+		d += Game._STEP;
+		piece[0].style.top = (px2number(piece[0].style.top) + Game._STEP) + 'px';
+		if ( d < Game._SIDE ) {
+			setTimeout(
+				function() {
+					moveDown(id, d);
+				}, Game._SPEED_CONTROL
+			);
+		} else {
+			var x = parseInt(id.substring(1));
+			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			if ( character == x ) {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceRight');
+			} else {
+				piece.removeClass('PieceRight');
+				piece.removeClass('PieceWrong');
+				piece.addClass('PieceWrong');
+			}
+		}
+	}
+	//
+	function moveP(id) {
+		var piece = $('#'+id);
+		var empty = $('#_0');
+		//
+		var current = piece.attr('data-p');
+		piece.attr('data-p', empty.attr('data-p'));
+		empty.attr('data-p', current);
+	}
+	//
+	function moveLeftMatrix(row, column) {
+		var current = Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column] = Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column - 1];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column - 1] = current;
+	}
+	function moveRightMatrix(row, column) {
+		var current = Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column] = Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column + 1];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column + 1] = current;
+	}
+	function moveUpMatrix(row, column) {
+		var current = Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column] = Game.currentStateMatrix[CURRENT_LEVEL - 1][row - 1][column];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row - 1][column] = current;
+	}
+	function moveDownMatrix(row, column) {
+		var current = Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column] = Game.currentStateMatrix[CURRENT_LEVEL - 1][row + 1][column];
+		Game.currentStateMatrix[CURRENT_LEVEL - 1][row + 1][column] = current;
+	}
+	//
+	function px2number(str) {
+		return (str+'').replace(/px/, '')*1;
+	}
+	//
+	//
+	//
+	window.Game = Game;
+	//
+	// *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * // 
 	//
 	var SCREEN_OPENING = 1;
 	var SCREEN_SELECT_LEVEL = 2;
@@ -74,8 +321,10 @@ Game.getInitialState = function() {
 	//
 	var CURRENT_LEVEL = 0;
 	//
+	// *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * // 
+	//
 	var logger = {
-		log: false,
+		log: true,
 		console: {
 			log: function(msg) {
 				if ( logger.log ) {
@@ -88,6 +337,9 @@ Game.getInitialState = function() {
 	// exposes the logger object so it can be turned
 	// on/off from external debugging console:
 	window.logger = logger;
+	//
+
+	// *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * // 
 	//
 	function animateLogo(screen) {
 		//
@@ -150,16 +402,16 @@ Game.getInitialState = function() {
 		//
 		Game.currentState = Game.getInitialState()[CURRENT_LEVEL - 1];
 		var x = 0;
-		for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1] ; i++ ) {
-			for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1] ; j++ ) {
-				var character = new Number(Game.currentState[x]);
+		for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1][0] ; i++ ) {
+			for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1][1] ; j++ ) {
+				var character =  parseInt(Game.currentState[x], 10);
 				var visibleCharacter = character;
 				visibleCharacter = '';
 				var backgroundPosition = Game._BACKGROUND_POSITIONS[CURRENT_LEVEL - 1][character];
 				if ( character == 0 ) {
 					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" class="PieceEmpty_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
 				} else {
-					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="move(this)" class="Piece Piece_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="Game.move(this)" class="Piece Piece_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
 				}
 				x++;
 			}
