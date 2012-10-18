@@ -132,7 +132,7 @@
 					moveDown('_0', 0);
 				}
 			}
-			if ( row < (Game._N - 1) ) {
+			if ( row < (Game._N[CURRENT_LEVEL - 1][0] - 1) ) {
 				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row + 1][column] == 0 ) {
 					moveDownMatrix(row, column);
 					moveP(piece.id);
@@ -148,7 +148,7 @@
 					moveRight('_0', 0);
 				}
 			}
-			if ( column < (Game._N - 1) ) {
+			if ( column < (Game._N[CURRENT_LEVEL - 1][1] - 1) ) {
 				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column + 1] == 0 ) {
 					moveRightMatrix(row, column);
 					moveP(piece.id);
@@ -248,6 +248,9 @@
 		}
 	}
 	function moveDown(id, d) {
+		//
+		logger.console.log('moveDown('+id+', '+d+')');
+		//
 		var piece = $('#'+id);
 		d += Game._STEP;
 		piece[0].style.top = (px2number(piece[0].style.top) + Game._STEP) + 'px';
@@ -409,9 +412,9 @@
 				visibleCharacter = '';
 				var backgroundPosition = Game._BACKGROUND_POSITIONS[CURRENT_LEVEL - 1][character];
 				if ( character == 0 ) {
-					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" class="PieceEmpty_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" class="PieceEmpty_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px; _left: '+(backgroundPosition[0]*-1)+'px; _top: '+(backgroundPosition[1]*-1)+'px;">'+visibleCharacter+'</div>');
 				} else {
-					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="Game.move(this)" class="Piece Piece_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px;">'+visibleCharacter+'</div>');
+					currentBoard.append('<div id="_'+character+'" data-p="'+x+'" onclick="Game.move(this)" class="Piece Piece_'+CURRENT_LEVEL+' '+(character == x ? 'PieceRight' : 'PieceWrong')+'" style="background-position: '+backgroundPosition[0]+'px '+backgroundPosition[1]+'px; _left: '+(backgroundPosition[0]*-1)+'px; _top: '+(backgroundPosition[1]*-1)+'px;">'+visibleCharacter+'</div>');
 				}
 				x++;
 			}
