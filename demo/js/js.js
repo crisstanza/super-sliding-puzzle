@@ -24,7 +24,7 @@
 		]
 	];
 	//
-	Game.gameOver = undefined;
+	Game.gameOver = true;
 	Game.currentState = undefined;
 	Game.currentStateMatrix = [
 		[
@@ -49,7 +49,7 @@
 	Game._STEP = 25;
 	Game._SPEED_CONTROL = 10;
 	Game._SIDE = 100;
-	Game._N = [
+	Game.BOARD_SIZE = [
 		[4, 4], [5, 4], [6, 4]
 	];
 	Game._BACKGROUND_POSITIONS = [
@@ -100,7 +100,7 @@
 						'12', '13', '14', '15', '16', '17',
 						'18', '19', '20', '21', '22', '23'
 					]
-				]
+				][CURRENT_LEVEL - 1]
 		);
 	};
 	//
@@ -112,9 +112,9 @@
 		//
 		if ( ! Game.gameOver ) {
 			var x = 0;
-			for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1][1] ; i++ ) {
-				for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1][0] ; j++ ) {
-					var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			for ( var i = 0 ; i < Game.BOARD_SIZE[CURRENT_LEVEL - 1][1] ; i++ ) {
+				for ( var j = 0 ; j < Game.BOARD_SIZE[CURRENT_LEVEL - 1][0] ; j++ ) {
+					var character =  parseInt(Game.currentState[x], 10);
 					Game.currentStateMatrix[CURRENT_LEVEL - 1][i][j] = character;
 					x++;
 				}
@@ -126,14 +126,20 @@
 			//
 			if ( row > 0 ) {
 				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row - 1][column] == 0 ) {
+					//
+					logger.console.log('   moveUp');
+					//
 					moveUpMatrix(row, column);
 					moveP(piece.id);
 					moveUp(piece.id, 0);
 					moveDown('_0', 0);
 				}
 			}
-			if ( row < (Game._N[CURRENT_LEVEL - 1][0] - 1) ) {
+			if ( row < (Game.BOARD_SIZE[CURRENT_LEVEL - 1][1] - 1) ) {
 				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row + 1][column] == 0 ) {
+					//
+					logger.console.log('   moveDown');
+					//
 					moveDownMatrix(row, column);
 					moveP(piece.id);
 					moveDown(piece.id, 0);
@@ -142,14 +148,20 @@
 			}
 			if ( column > 0 ) {
 				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column - 1] == 0 ) {
+					//
+					logger.console.log('   moveLeft');
+					//
 					moveLeftMatrix(row, column);
 					moveP(piece.id);
 					moveLeft(piece.id, 0);
 					moveRight('_0', 0);
 				}
 			}
-			if ( column < (Game._N[CURRENT_LEVEL - 1][1] - 1) ) {
+			if ( column < (Game.BOARD_SIZE[CURRENT_LEVEL - 1][0] - 1) ) {
 				if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column + 1] == 0 ) {
+					//
+					logger.console.log('   moveRight');
+					//
 					moveRightMatrix(row, column);
 					moveP(piece.id);
 					moveRight(piece.id, 0);
@@ -158,21 +170,82 @@
 			}
 			//
 			var newCurrentState = [];
-			for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1][1] ; i++ ) {
-				for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1][0] ; j++ ) {
+			for ( var i = 0 ; i < Game.BOARD_SIZE[CURRENT_LEVEL - 1][1] ; i++ ) {
+				for ( var j = 0 ; j < Game.BOARD_SIZE[CURRENT_LEVEL - 1][0] ; j++ ) {
 					var character = Game.currentStateMatrix[CURRENT_LEVEL - 1][i][j];
 					newCurrentState.push(character);
 				}
 			}
-			Game.currentState[CURRENT_LEVEL - 1] = newCurrentState;
-			if ( Game.currentState[CURRENT_LEVEL - 1] == '012345678' ) {
+			Game.currentState = newCurrentState;
+			if ( Game.checkGameOver() ) {
 				Game.gameOver = true;
 				Game.end();
 			}
 		}
 	};
 	//
+	Game.checkGameOver = function() {
+		var length = Game.currentState.length;
+		for ( var i = 0 ; i < length ; i++ ) {
+			var p = parseInt(Game.currentState[i], 10);
+			if ( i != p ) {
+				return false;
+			}
+		}
+		return true;
+	}
+	//
+	Game.end = function() {
+		setTimeout(function() {
+			console.log('game over');
+			alert('game over');
+		}, (Game._SIDE / Game._STEP) * Game._SPEED_CONTROL * 2 * 2);
+	}
+	//
+	Game.scrumble = function() {
+		var n = Game.BOARD_SIZE[CURRENT_LEVEL - 1];
+		var sizeHor = n[0];
+		var sizeVer = n[1];
+		//
+		var empty = { x: 0, y: 0 };
+		var newEmpty = { x: undefined, y: undefined };
+		//
+		for ( var i = 1 ; i >= 0 ; i-- ) {
+			newEmpty.x = empty.x + (Math.floor(Math.random()*2) == 0 ? -1 : 1);
+			newEmpty.y = empty.y;
+			//
+			newEmpty.x = newEmpty.x < 0 ? 0 : newEmpty.x;
+			newEmpty.x = newEmpty.x >= sizeHor ? sizeHor - 1 : newEmpty.x;
+			//
+			var r1 = empty.y * sizeHor + empty.x;
+			var r2 = newEmpty.y * sizeHor + newEmpty.x;
+			var current = Game.currentState[r1];
+			Game.currentState[r1] = Game.currentState[r2];
+			Game.currentState[r2] = current;
+			//
+			empty.x = newEmpty.x;
+			empty.y = newEmpty.y;
+			//
+			newEmpty.y = newEmpty.y + (Math.floor(Math.random()*2) == 0 ? -1 : 1)
+			//
+			newEmpty.y = newEmpty.y < 0 ? 0 : newEmpty.y;
+			newEmpty.y = newEmpty.y >= sizeVer ? sizeVer - 1 : newEmpty.y;
+			//
+			var r1 = empty.y * sizeHor + empty.x;
+			var r2 = newEmpty.y * sizeHor + newEmpty.x;
+			var current = Game.currentState[r1];
+			Game.currentState[r1] = Game.currentState[r2];
+			Game.currentState[r2] = current;
+			//
+			empty.x = newEmpty.x;
+			empty.y = newEmpty.y;
+		}
+	}
+	//
 	function moveLeft(id, d) {
+		//
+		logger.console.log('moveLeft('+id+', '+d+')');
+		//
 		var piece = $('#'+id);
 		d += Game._STEP;
 		piece[0].style.left = (px2number(piece[0].style.left) - Game._STEP) + 'px';
@@ -184,7 +257,7 @@
 			);
 		} else {
 			var x = parseInt(id.substring(1));
-			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			var character =  parseInt(Game.currentState[x], 10);
 			if ( character == x ) {
 				piece.removeClass('PieceRight');
 				piece.removeClass('PieceWrong');
@@ -197,6 +270,9 @@
 		}
 	}
 	function moveRight(id, d) {
+		//
+		logger.console.log('moveRight('+id+', '+d+')');
+		//
 		var piece = $('#'+id);
 		d += Game._STEP;
 		piece[0].style.left = (px2number(piece[0].style.left) + Game._STEP) + 'px';
@@ -208,7 +284,7 @@
 			);
 		} else {
 			var x = parseInt(id.substring(1));
-			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			var character =  parseInt(Game.currentState[x], 10);
 			if ( character == x ) {
 				piece.removeClass('PieceRight');
 				piece.removeClass('PieceWrong');
@@ -235,7 +311,7 @@
 			);
 		} else {
 			var x = parseInt(id.substring(1));
-			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			var character =  parseInt(Game.currentState[x], 10);
 			if ( character == x ) {
 				piece.removeClass('PieceRight');
 				piece.removeClass('PieceWrong');
@@ -262,7 +338,7 @@
 			);
 		} else {
 			var x = parseInt(id.substring(1));
-			var character =  parseInt(Game.currentState[CURRENT_LEVEL - 1][x], 10);
+			var character =  parseInt(Game.currentState[x], 10);
 			if ( character == x ) {
 				piece.removeClass('PieceRight');
 				piece.removeClass('PieceWrong');
@@ -327,7 +403,7 @@
 	// *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * // 
 	//
 	var logger = {
-		log: true,
+		log: false,
 		console: {
 			log: function(msg) {
 				if ( logger.log ) {
@@ -400,13 +476,19 @@
 		//
 		logger.console.log('startBoard()');
 		//
+		$('#main_board_1').html('');
+		$('#main_board_2').html('');
+		$('#main_board_3').html('');
 		var currentBoard = $('#main_board_'+CURRENT_LEVEL);
-		currentBoard.html('');
 		//
-		Game.currentState = Game.getInitialState()[CURRENT_LEVEL - 1];
+		Game.currentState = Game.getInitialState();
+		Game.scrumble();
+		//
+		logger.console.log('  Game.currentState: '+Game.currentState);
+		//
 		var x = 0;
-		for ( var i = 0 ; i < Game._N[CURRENT_LEVEL - 1][0] ; i++ ) {
-			for ( var j = 0 ; j < Game._N[CURRENT_LEVEL - 1][1] ; j++ ) {
+		for ( var j = 0 ; j < Game.BOARD_SIZE[CURRENT_LEVEL - 1][0] ; j++ ) {
+			for ( var i = 0 ; i < Game.BOARD_SIZE[CURRENT_LEVEL - 1][1] ; i++ ) {
 				var character =  parseInt(Game.currentState[x], 10);
 				var visibleCharacter = character;
 				visibleCharacter = '';
@@ -419,6 +501,21 @@
 				x++;
 			}
 		}
+		//
+		// for ( var i = 20 ; i >= 0 ; i-- ) {
+		// 	Game.move($('#_'+randomMove())[0]);
+		// 	Game.gameOver = false;
+		// }
+		//
+		Game.gameOver = false;
+	}
+	//
+	function randomMove() {
+		var n = Game.BOARD_SIZE[CURRENT_LEVEL - 1];
+		var nn = n[0] * n[1];
+		return  Math.floor(
+			Math.random() * nn
+		);
 	}
 	//
 	function init() {
