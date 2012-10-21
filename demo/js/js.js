@@ -490,8 +490,9 @@
 				var gameTimeInSeconds = currentTimeInSeconds - Game.startTime;
 				var currentTimeFormatted = formatTime(gameTimeInSeconds);
 				mainClock.html(currentTimeFormatted);
-				if ( gameTimeInSeconds == 3599 ) {
+				if ( gameTimeInSeconds >= 3599 ) {
 					clearInterval(Game.mainClockLoop);
+					mainClock.html('59:59');
 				}
 			}, 1000);
 		}
