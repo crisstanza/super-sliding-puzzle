@@ -2,6 +2,8 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #F7F7F7;
+	font-family: Verdana;
+	font-size: 10pt;
 	/* border: 1px solid LightGrey; */
 	/* width: 1140px; */
 }
@@ -98,7 +100,6 @@ div#main_clock {
 	line-height: 43px;
 	margin-top: 28px;
 	vertical-align: middle;
-	font-family: Verdana;
 	font-size: 15pt;
 	text-shadow: -2px 2px LightGrey;
 }
@@ -134,6 +135,40 @@ div#max_1, div#max_2, div#max_3 {
 	margin: -10px auto auto auto;
 	background-repeat: no-repeat;
 }
-div#max_1 { width: 239px; height: 42px; background-image: url(../img/max_level_1.png); }
-div#max_2 { width: 279px; height: 44px; background-image: url(../img/max_level_2.png); }
-div#max_3 { width: 243px; height: 46px; background-image: url(../img/max_level_3.png); }
+div.max_1 { width: 239px; height: 42px; background-image: url(../img/max_level_1.png); }
+div.max_2 { width: 279px; height: 44px; background-image: url(../img/max_level_2.png); }
+div.max_3 { width: 243px; height: 46px; background-image: url(../img/max_level_3.png); }
+
+ul {
+	padding: 0;
+}
+li {
+	list-style: none;
+	float: left;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.score_image {
+	float: left;
+}
+.score_name {
+	color: rgb(39, 91, 152);
+	float: left;
+	width: 180px;
+	border-right: 1px solid #E2E2E2;
+	padding: 5px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+.score_score {
+	color: #444;
+	font-weight: bold;
+	float: left;
+	width: 55px;
+	padding: 5px;
+	line-height: 20px;
+	vertical-align: middle;
+	text-align: right;
+	margin-right: -10px;
+}
