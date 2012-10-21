@@ -129,3 +129,11 @@ div.PieceRight {
 div.PieceWrong {
 	/* border: 1px solid rgba(255, 0, 0, 0.2); */
 }
+
+div#max_1, div#max_2, div#max_3 {
+	margin: -10px auto auto auto;
+	background-repeat: no-repeat;
+}
+div#max_1 { width: 239px; height: 42px; background-image: url(../img/max_level_1.png); }
+div#max_2 { width: 279px; height: 44px; background-image: url(../img/max_level_2.png); }
+div#max_3 { width: 243px; height: 46px; background-image: url(../img/max_level_3.png); }
