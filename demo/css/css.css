@@ -92,6 +92,17 @@ a#main_back:Hover {
 	background-image: url(../img/back.png);
 }
 
+div#main_clock {
+	display: none;
+	float: right;
+	line-height: 43px;
+	margin-top: 28px;
+	vertical-align: middle;
+	font-family: Verdana;
+	font-size: 15pt;
+	text-shadow: -2px 2px LightGrey;
+}
+
 div.Piece, div.PieceEmpty_1, div.PieceEmpty_2, div.PieceEmpty_3 {
 	float: left;
 	width: 100px;

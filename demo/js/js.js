@@ -1,5 +1,7 @@
 (function() {
 	//
+	var gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
+	//
 	function Game() {
 	}
 	//
@@ -23,6 +25,9 @@
 			[3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5],
 		]
 	];
+	//
+	Game.startTime = undefined;
+	Game.mainClockLoop = undefined;
 	//
 	Game.gameOver = true;
 	Game.currentState = undefined;
@@ -196,6 +201,14 @@
 	}
 	//
 	Game.end = function() {
+		clearInterval(Game.mainClockLoop);
+		//
+		var currentTime = $("#main_clock").html();
+		var currentTimeInSeconds = parseInt2(currentTime);
+		var score = (3599*CURRENT_LEVEL - currentTimeInSeconds)*CURRENT_LEVEL;
+		//
+		gsb.write('void', CURRENT_LEVEL, { fbId: 3, name: 'John Doe', score: score });
+		//
 		setTimeout(function() {
 			console.log('game over');
 			alert('game over');
@@ -447,6 +460,7 @@
 		var imgLogo = $('#img_logo');
 		var panelButtons = $('#screen_1_buttons');
 		var mainBack = $('#main_back');
+		var mainClock = $('#main_clock');
 		//
 		if ( screen == SCREEN_OPENING ) {
 			animateLogo(screen);
@@ -462,6 +476,7 @@
 			$('#main_board_2').fadeOut(DELAY_OBJECTS_CHANGE);
 			$('#main_board_3').fadeOut(DELAY_OBJECTS_CHANGE);
 			mainBack.fadeOut(DELAY_OBJECTS_CHANGE);
+			mainClock.fadeOut(DELAY_OBJECTS_CHANGE);
 		} else if ( screen == SCREEN_GAME ) {
 			imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
 			imgLogo.fadeOut(DELAY_OBJECTS_CHANGE);
@@ -469,13 +484,42 @@
 			$('#main_board_'+CURRENT_LEVEL).fadeIn(DELAY_OBJECTS_CHANGE);
 			startBoard();
 			mainBack.fadeIn(DELAY_OBJECTS_CHANGE);
+			mainClock.fadeIn(DELAY_OBJECTS_CHANGE);
+			Game.startTime = Math.floor(new Date().getTime() / 1000);
+			Game.mainClockLoop = setInterval(function() {
+				var currentTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+				var gameTimeInSeconds = currentTimeInSeconds - Game.startTime;
+				var currentTimeFormatted = formatTime(gameTimeInSeconds);
+				mainClock.html(currentTimeFormatted);
+				if ( gameTimeInSeconds == 3599 ) {
+					clearInterval(Game.mainClockLoop);
+				}
+			}, 1000);
 		}
+	}
+	//
+	function formatTime(seconds) {
+		var mins = Math.floor(seconds / 60);
+		var secs = seconds % 60;
+		return formatInt2(mins) + ':' + formatInt2(secs);
+	}
+	function formatInt2(number) {
+		return ( number < 10 ? '0' : '' ) + number ;
+	}
+	function parseInt2(str) {
+		var parts = str.split(':');
+		return parseInt(parts[0]*60) + parseInt(parts[1]);
 	}
 	//
 	function startBoard() {
 		//
 		logger.console.log('startBoard()');
 		//
+		if ( Game.mainClockLoop ) {
+			clearInterval(Game.mainClockLoop);
+		}
+		$('#main_clock').html('00:00');
+		//		
 		$('#main_board_1').html('');
 		$('#main_board_2').html('');
 		$('#main_board_3').html('');
