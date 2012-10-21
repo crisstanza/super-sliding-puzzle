@@ -210,8 +210,7 @@
 		gsb.write('void', CURRENT_LEVEL, { fbId: 3, name: 'John Doe', score: score });
 		//
 		setTimeout(function() {
-			console.log('game over');
-			alert('game over');
+			alert('Congratulations!\n\nYou finished the puzzle!');
 		}, (Game._SIDE / Game._STEP) * Game._SPEED_CONTROL * 2 * 2);
 	}
 	//
