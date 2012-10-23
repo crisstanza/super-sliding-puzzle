@@ -172,3 +172,7 @@ li {
 	text-align: right;
 	margin-right: -10px;
 }
+
+#box_score_board_1, #box_score_board_2, #box_score_board_3 {
+	display: none;
+}
