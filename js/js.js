@@ -1,5 +1,54 @@
 var gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
 //
+//
+//
+function FacebookStuff() {
+}
+
+FacebookStuff.appId = '329757033789605';
+FacebookStuff.scope = 'publish_actions';
+FacebookStuff.userID = -1;
+FacebookStuff.accessToken = null;
+FacebookStuff.score = -1;
+
+FacebookStuff.MAX_SCORES = 10; // players
+FacebookStuff.MAX_PLAYER_NAME = 12; // chars
+//
+//
+function scoreboardInit() {
+	if ( typeof(FB) != 'undefined' ) {
+		FB.init({
+			appId: FacebookStuff.appId,
+			cookie: true,
+		});
+		//
+		FB.getLoginStatus(
+			function(response) {
+				var responseStatus = response.status;
+				if ( responseStatus === 'connected' ) {
+					FacebookStuff.userID = response.authResponse.userID;
+					FacebookStuff.accessToken = response.authResponse.accessToken;
+				} else if ( response.status === 'not_authorized' ) {
+					authUser();
+				} else {
+					authUser();
+				}
+			}
+		);
+	}
+}
+//
+function authUser() {
+	var url = ''+
+		'http://www.facebook.com/dialog/oauth/?'+
+		'client_id='+FacebookStuff.appId+
+		'&redirect_uri='+location.href+
+		'&scope='+FacebookStuff.scope
+	;
+	window.location.href = url;
+}
+//
+//
 function Game() {
 }
 //
@@ -637,9 +686,9 @@ function init() {
 }
 //
 function gsbRead() {
-	setTimeout(function() { gsb.read('gsbReadCallback', 1) }, DELAY_SCREEN_CHANGE/3 );
-	setTimeout(function() { gsb.read('gsbReadCallback', 2) }, DELAY_SCREEN_CHANGE/2 );
-	setTimeout(function() { gsb.read('gsbReadCallback', 3) }, DELAY_SCREEN_CHANGE/1 );
+	setTimeout(function() { gsb.read('gsbReadCallback', 1, FacebookStuff.fbId) }, DELAY_SCREEN_CHANGE/3 );
+	setTimeout(function() { gsb.read('gsbReadCallback', 2, FacebookStuff.fbId) }, DELAY_SCREEN_CHANGE/2 );
+	setTimeout(function() { gsb.read('gsbReadCallback', 3, FacebookStuff.fbId) }, DELAY_SCREEN_CHANGE/1 );
 }
 //
 $(document).ready(init);
