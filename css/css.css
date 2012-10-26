@@ -151,11 +151,13 @@ li {
 
 .score_image {
 	float: left;
+	width: 30px;
+	height: 30px;
 }
 .score_name {
 	color: rgb(39, 91, 152);
 	float: left;
-	width: 180px;
+	width: 182px;
 	border-right: 1px solid #E2E2E2;
 	padding: 5px;
 	line-height: 20px;
@@ -165,12 +167,11 @@ li {
 	color: #444;
 	font-weight: bold;
 	float: left;
-	width: 55px;
+	width: 45px;
 	padding: 5px;
 	line-height: 20px;
 	vertical-align: middle;
 	text-align: right;
-	margin-right: -10px;
 }
 
 #box_score_board_1, #box_score_board_2, #box_score_board_3 {

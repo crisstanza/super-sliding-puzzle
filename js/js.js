@@ -203,7 +203,7 @@ Game.end = function() {
 	//
 	var currentTime = $("#main_clock").html();
 	var currentTimeInSeconds = parseInt2(currentTime);
-	var score = (3599*CURRENT_LEVEL - currentTimeInSeconds)*CURRENT_LEVEL;
+	var score = encodeGameTime(currentTimeInSeconds, CURRENT_LEVEL);
 	//
 	gsb.write('void', CURRENT_LEVEL, { fbId: 3, name: 'John Doe', score: score });
 	//
@@ -485,7 +485,7 @@ function goToScreen(screen) {
 		Game.mainClockLoop = setInterval(function() {
 			var currentTimeInSeconds = Math.floor(new Date().getTime() / 1000);
 			var gameTimeInSeconds = currentTimeInSeconds - Game.startTime;
-			var currentTimeFormatted = formatTime(gameTimeInSeconds);
+			var currentTimeFormatted = formatGameTime(gameTimeInSeconds);
 			mainClock.html(currentTimeFormatted);
 			if ( gameTimeInSeconds >= 3599 ) {
 				clearInterval(Game.mainClockLoop);
@@ -495,7 +495,7 @@ function goToScreen(screen) {
 	}
 }
 //
-function formatTime(seconds) {
+function formatGameTime(seconds) {
 	var mins = Math.floor(seconds / 60);
 	var secs = seconds % 60;
 	return formatInt2(mins) + ':' + formatInt2(secs);
@@ -506,6 +506,13 @@ function formatInt2(number) {
 function parseInt2(str) {
 	var parts = str.split(':');
 	return parseInt(parts[0]*60) + parseInt(parts[1]);
+}
+//
+function decodeGameTime(score, currentLevel) {
+	return (3600*currentLevel*currentLevel - score) / currentLevel;
+}
+function encodeGameTime(currentTimeInSeconds, currentLevel) {
+	return (3600*currentLevel - currentTimeInSeconds)*currentLevel;
 }
 //
 function startBoard() {
@@ -585,7 +592,7 @@ function gsbReadCallback(response) {
 		personHTML = personHTML.replace(/{id}/g, person.fbId);
 		personHTML = personHTML.replace(/{name}/g, person.name);
 		personHTML = personHTML.replace(/{name-full}/g, person.name);
-		personHTML = personHTML.replace(/{score}/g, person.score);
+		personHTML = personHTML.replace(/{score}/g, formatGameTime(decodeGameTime(person.score, response.level)));
 		//
 		board.append(personHTML);
 	}
@@ -595,6 +602,10 @@ function gsbReadCallback(response) {
 		box.fadeIn(DELAY_OBJECTS_CHANGE);
 	} else {
 		box.fadeOut(DELAY_OBJECTS_CHANGE);		
+	}
+	//
+	if ( response.level == 3 ) {
+		setTimeout(gsbRead, 1000);
 	}
 }
 //
@@ -622,6 +633,10 @@ function init() {
 	setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
 	// setTimeout(function() { goToScreen(SCREEN_OPENING); }, 0 );
 	//
+	gsbRead();
+}
+//
+function gsbRead() {
 	setTimeout(function() { gsb.read('gsbReadCallback', 1) }, DELAY_SCREEN_CHANGE/3 );
 	setTimeout(function() { gsb.read('gsbReadCallback', 2) }, DELAY_SCREEN_CHANGE/2 );
 	setTimeout(function() { gsb.read('gsbReadCallback', 3) }, DELAY_SCREEN_CHANGE/1 );
