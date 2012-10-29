@@ -1,7 +1,5 @@
 var gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
 //
-//
-//
 function FacebookStuff() {
 }
 
@@ -47,7 +45,6 @@ function authUser() {
 	;
 	window.location.href = url;
 }
-//
 //
 function Game() {
 }
@@ -158,10 +155,6 @@ Game.getInitialState = function() {
 //
 Game.move = function(piece) {
 	//
-	logger.console.log('Game.move('+piece+')');
-	//
-	//
-	//
 	if ( ! Game.gameOver ) {
 		var x = 0;
 		for ( var i = 0 ; i < Game.BOARD_SIZE[CURRENT_LEVEL - 1][1] ; i++ ) {
@@ -178,9 +171,6 @@ Game.move = function(piece) {
 		//
 		if ( row > 0 ) {
 			if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row - 1][column] == 0 ) {
-				//
-				logger.console.log('   moveUp');
-				//
 				moveUpMatrix(row, column);
 				moveP(piece.id);
 				moveUp(piece.id, 0);
@@ -189,9 +179,6 @@ Game.move = function(piece) {
 		}
 		if ( row < (Game.BOARD_SIZE[CURRENT_LEVEL - 1][1] - 1) ) {
 			if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row + 1][column] == 0 ) {
-				//
-				logger.console.log('   moveDown');
-				//
 				moveDownMatrix(row, column);
 				moveP(piece.id);
 				moveDown(piece.id, 0);
@@ -200,9 +187,6 @@ Game.move = function(piece) {
 		}
 		if ( column > 0 ) {
 			if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column - 1] == 0 ) {
-				//
-				logger.console.log('   moveLeft');
-				//
 				moveLeftMatrix(row, column);
 				moveP(piece.id);
 				moveLeft(piece.id, 0);
@@ -211,9 +195,6 @@ Game.move = function(piece) {
 		}
 		if ( column < (Game.BOARD_SIZE[CURRENT_LEVEL - 1][0] - 1) ) {
 			if ( Game.currentStateMatrix[CURRENT_LEVEL - 1][row][column + 1] == 0 ) {
-				//
-				logger.console.log('   moveRight');
-				//
 				moveRightMatrix(row, column);
 				moveP(piece.id);
 				moveRight(piece.id, 0);
@@ -302,9 +283,6 @@ Game.scrumble = function() {
 }
 //
 function moveLeft(id, d) {
-	//
-	logger.console.log('moveLeft('+id+', '+d+')');
-	//
 	var piece = $('#'+id);
 	d += Game._STEP;
 	piece[0].style.left = (px2number(piece[0].style.left) - Game._STEP) + 'px';
@@ -329,9 +307,6 @@ function moveLeft(id, d) {
 	}
 }
 function moveRight(id, d) {
-	//
-	logger.console.log('moveRight('+id+', '+d+')');
-	//
 	var piece = $('#'+id);
 	d += Game._STEP;
 	piece[0].style.left = (px2number(piece[0].style.left) + Game._STEP) + 'px';
@@ -356,9 +331,6 @@ function moveRight(id, d) {
 	}
 }
 function moveUp(id, d) {
-	//
-	logger.console.log('moveUp('+id+', '+d+')');
-	//
 	var piece = $('#'+id);
 	d += Game._STEP;
 	piece[0].style.top = (px2number(piece[0].style.top) - Game._STEP) + 'px';
@@ -383,9 +355,6 @@ function moveUp(id, d) {
 	}
 }
 function moveDown(id, d) {
-	//
-	logger.console.log('moveDown('+id+', '+d+')');
-	//
 	var piece = $('#'+id);
 	d += Game._STEP;
 	piece[0].style.top = (px2number(piece[0].style.top) + Game._STEP) + 'px';
@@ -459,29 +428,8 @@ var DELAY_OBJECTS_CHANGE = 400 * 1;
 //
 var CURRENT_LEVEL = 0;
 //
-// *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * // 
-//
-var logger = {
-	log: false,
-	console: {
-		log: function(msg) {
-			if ( logger.log ) {
-				console.log(msg);
-			}
-		}
-	}
-};
-//
-// exposes the logger object so it can be turned
-// on/off from external debugging console:
-window.logger = logger;
-//
-// *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * // 
 //
 function animateLogo(screen) {
-	//
-	logger.console.log('animateLogo('+screen+')');
-	//
 	var imgLogo = $('#img_logo');
 	//
 	if ( screen == SCREEN_OPENING ) {
@@ -498,9 +446,6 @@ function animateLogo(screen) {
 }
 //
 function goToScreen(screen) {
-	//
-	logger.console.log('goToScreen('+screen+')');
-	//
 	var imgTitle = $('#img_title');
 	var imgLogo = $('#img_logo');
 	var panelButtons = $('#screen_1_buttons');
@@ -565,9 +510,6 @@ function encodeGameTime(currentTimeInSeconds, currentLevel) {
 }
 //
 function startBoard() {
-	//
-	logger.console.log('startBoard()');
-	//
 	if ( Game.mainClockLoop ) {
 		clearInterval(Game.mainClockLoop);
 	}
@@ -580,8 +522,6 @@ function startBoard() {
 	//
 	Game.currentState = Game.getInitialState();
 	Game.scrumble();
-	//
-	logger.console.log('  Game.currentState: '+Game.currentState);
 	//
 	var x = 0;
 	for ( var j = 0 ; j < Game.BOARD_SIZE[CURRENT_LEVEL - 1][0] ; j++ ) {
@@ -599,26 +539,10 @@ function startBoard() {
 		}
 	}
 	//
-	// for ( var i = 20 ; i >= 0 ; i-- ) {
-	// 	Game.move($('#_'+randomMove())[0]);
-	// 	Game.gameOver = false;
-	// }
-	//
 	Game.gameOver = false;
 }
 //
-function randomMove() {
-	var n = Game.BOARD_SIZE[CURRENT_LEVEL - 1];
-	var nn = n[0] * n[1];
-	return  Math.floor(
-		Math.random() * nn
-	);
-}
-//
 function gsbReadCallback(response) {
-	//
-	logger.console.log('gsbReadCallback('+response+')');
-	//
 	var personHTMLTemplate = ''+
 		'<li>'+
 			'<a href="http://www.facebook.com/{id}" title="{name-full}" target="_blank">'+
@@ -659,9 +583,6 @@ function gsbReadCallback(response) {
 }
 //
 function init() {
-	//
-	logger.console.log('init()');
-	//
 	var links = $('#screen_1_buttons a');
 	var length = links.length - 1;
 	for ( var i = length ; i >=0 ; i-- ) {
@@ -678,9 +599,7 @@ function init() {
 		goToScreen(SCREEN_SELECT_LEVEL);
 	});
 	//
-	// goToScreen(SCREEN_OPENING);
 	setTimeout(function() { goToScreen(SCREEN_OPENING); }, DELAY_SCREEN_CHANGE );
-	// setTimeout(function() { goToScreen(SCREEN_OPENING); }, 0 );
 	//
 	gsbRead();
 }
