@@ -1,18 +1,5 @@
 var gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
 //
-function FacebookStuff() {
-}
-
-FacebookStuff.appId = '329757033789605';
-FacebookStuff.scope = 'publish_actions';
-FacebookStuff.userID = -1;
-FacebookStuff.accessToken = null;
-FacebookStuff.score = -1;
-
-FacebookStuff.MAX_SCORES = 10; // players
-FacebookStuff.MAX_PLAYER_NAME = 12; // chars
-//
-//
 function scoreboardInit() {
 	if ( typeof(FB) != 'undefined' ) {
 		FB.init({
