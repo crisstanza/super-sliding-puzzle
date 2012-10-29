@@ -1,4 +1,4 @@
-var gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
+var gsb;
 //
 function scoreboardInit() {
 	if ( typeof(FB) != 'undefined' ) {
@@ -570,6 +570,8 @@ function gsbReadCallback(response) {
 }
 //
 function init() {
+	gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
+	//
 	var links = $('#screen_1_buttons a');
 	var length = links.length - 1;
 	for ( var i = length ; i >=0 ; i-- ) {
