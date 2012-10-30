@@ -4,6 +4,7 @@ function FacebookStuff() {
 FacebookStuff.appId = '329757033789605';
 FacebookStuff.scope = 'publish_actions';
 FacebookStuff.userID = -1;
+FacebookStuff.userName = null;
 FacebookStuff.accessToken = null;
 FacebookStuff.score = -1;
 FacebookStuff.appUrl = "http://super-sliding-puzzle.herokuapp.com";

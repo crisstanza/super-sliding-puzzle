@@ -208,11 +208,13 @@ Game.checkGameOver = function() {
 Game.end = function() {
 	clearInterval(Game.mainClockLoop);
 	//
-	var currentTime = $("#main_clock").html();
-	var currentTimeInSeconds = parseInt2(currentTime);
-	var score = encodeGameTime(currentTimeInSeconds, CURRENT_LEVEL);
-	//
-	gsb.write('void', CURRENT_LEVEL, { fbId: FacebookStuff.userID, name: FacebookStuff.name, score: score });
+	if ( FacebookStuff.userID > 0 ) {
+		var currentTime = $("#main_clock").html();
+		var currentTimeInSeconds = parseInt2(currentTime);
+		var score = encodeGameTime(currentTimeInSeconds, CURRENT_LEVEL);
+		//
+		gsb.write('void', CURRENT_LEVEL, { fbId: FacebookStuff.userID, name: FacebookStuff.userName, score: score });
+	}
 	//
 	setTimeout(function() {
 		alert('Congratulations!\n\nYou finish the puzzle!');
