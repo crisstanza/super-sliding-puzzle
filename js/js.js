@@ -2,10 +2,7 @@ var gsb;
 //
 function fbInit() {
 	if ( typeof(FB) != 'undefined' ) {
-		FB.init({
-			appId: FacebookStuff.appId,
-			cookie: true,
-		});
+		FB.init( { appId: FacebookStuff.appId, cookie: true } );
 		//
 		FB.getLoginStatus(
 			function(response) {
@@ -13,6 +10,7 @@ function fbInit() {
 				if ( responseStatus === 'connected' ) {
 					FacebookStuff.userID = response.authResponse.userID;
 					FacebookStuff.accessToken = response.authResponse.accessToken;
+					FacebookStuff.getUserName();
 				} else if ( response.status === 'not_authorized' ) {
 					FacebookStuff.authUser();
 				} else {
@@ -208,7 +206,7 @@ Game.checkGameOver = function() {
 Game.end = function() {
 	clearInterval(Game.mainClockLoop);
 	//
-	if ( FacebookStuff.userID > 0 ) {
+	if ( FacebookStuff.userID != -1 && FacebookStuff.userName != null ) {
 		var currentTime = $("#main_clock").html();
 		var currentTimeInSeconds = parseInt2(currentTime);
 		var score = encodeGameTime(currentTimeInSeconds, CURRENT_LEVEL);

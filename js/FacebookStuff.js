@@ -21,3 +21,9 @@ FacebookStuff.authUser = function() {
 	;
 	window.location.href = url;
 }
+
+FacebookStuff.getUserName = function() {
+	FB.api('/me', function(response) {
+		FacebookStuff.userName = response.name;
+	});
+}
