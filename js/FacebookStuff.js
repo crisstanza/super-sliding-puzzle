@@ -6,6 +6,17 @@ FacebookStuff.scope = 'publish_actions';
 FacebookStuff.userID = -1;
 FacebookStuff.accessToken = null;
 FacebookStuff.score = -1;
+FacebookStuff.appUrl = "http://super-sliding-puzzle.herokuapp.com";
 
 FacebookStuff.MAX_SCORES = 10; // players
 FacebookStuff.MAX_PLAYER_NAME = 12; // chars
+
+FacebookStuff.authUser = function() {
+	var url = ''+
+		'http://www.facebook.com/dialog/oauth/?'+
+		'client_id='+FacebookStuff.appId+
+		'&redirect_uri='+FacebookStuff.appUrl+
+		'&scope='+FacebookStuff.scope
+	;
+	window.location.href = url;
+}

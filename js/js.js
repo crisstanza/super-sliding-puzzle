@@ -1,6 +1,6 @@
 var gsb;
 //
-function scoreboardInit() {
+function fbInit() {
 	if ( typeof(FB) != 'undefined' ) {
 		FB.init({
 			appId: FacebookStuff.appId,
@@ -14,23 +14,13 @@ function scoreboardInit() {
 					FacebookStuff.userID = response.authResponse.userID;
 					FacebookStuff.accessToken = response.authResponse.accessToken;
 				} else if ( response.status === 'not_authorized' ) {
-					authUser();
+					FacebookStuff.authUser();
 				} else {
-					authUser();
+					FacebookStuff.authUser();
 				}
 			}
 		);
 	}
-}
-//
-function authUser() {
-	var url = ''+
-		'http://www.facebook.com/dialog/oauth/?'+
-		'client_id='+FacebookStuff.appId+
-		'&redirect_uri='+location.href+
-		'&scope='+FacebookStuff.scope
-	;
-	window.location.href = url;
 }
 //
 function Game() {
@@ -222,7 +212,7 @@ Game.end = function() {
 	var currentTimeInSeconds = parseInt2(currentTime);
 	var score = encodeGameTime(currentTimeInSeconds, CURRENT_LEVEL);
 	//
-	gsb.write('void', CURRENT_LEVEL, { fbId: 3, name: 'John Doe', score: score });
+	gsb.write('void', CURRENT_LEVEL, { fbId: FacebookStuff.userID, name: FacebookStuff.name, score: score });
 	//
 	setTimeout(function() {
 		alert('Congratulations!\n\nYou finish the puzzle!');
@@ -570,6 +560,8 @@ function gsbReadCallback(response) {
 }
 //
 function init() {
+	fbInit();
+	//
 	gsb = new GSB('g6uYq6v3T9bVLoAT1bXKZ9Mn2TLWNs3Q5s7SpB0K5f555MH1ZGeey7i1Ldhw18vN');
 	//
 	var links = $('#screen_1_buttons a');
