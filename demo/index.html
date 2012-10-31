@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>sliding puzzle</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/css.css"></style>
+		<link rel="stylesheet" type="text/css" href="css/box.css"></style>
+		<script src="https://ssl731.websiteseguro.com/acasadossims1/zzz/acasadojava/gsb/GSB.js"></script>
+		<script src="js/lib/jquery.js"></script>
+		<script src="js/FacebookStuff.js"></script>
+		<script src="js/Utils.js"></script>
+		<script src="js/js.js"></script>
+		<script type="text/javascript">var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-35967573-1']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();</script>
+	</head>
+	<body>
+<!-- body -->
+
+<!-- facebook -->
+		<div id="fb-root"></div>
+ 		<script src="//connect.facebook.net/en_US/all.js"></script>
+<!-- /facebook -->
+
+		<div class="box box_big">
+			<div class="top_left"></div>
+			<div class="top"></div>
+			<div class="top_right"></div>
+			<div class="left"></div>
+			<div class="middle">
+<!-- screen 1 -->
+				<img id="img_title" src="img/title_2.png" width="364" height="67" />
+				<img id="img_logo" src="img/logo.png" width="642" height="311" />
+				<img id="img_logo_super" src="img/logo_super.png" width="434" height="196" />
+				<div id="screen_1_buttons">
+					<div id="screen_1_button_1"><img src="img/easy.png" /><a class="screen_1_button_1" href="#1"></a></div>
+					<div id="screen_1_button_2"><img src="img/medium.png" /><a class="screen_1_button_2" href="#2"></a></div>
+					<div id="screen_1_button_3"><img src="img/hard.png" /><a class="screen_1_button_3" href="#3"></a></div>
+				</div>
+<!-- /screen 1 -->
+<!-- screen 2 -->
+				<div id="main_board_1"></div>
+				<div id="main_board_2"></div>
+				<div id="main_board_3"></div>
+				<a id="main_back" href="#"></a>
+				<div id="main_clock">00:00</div>
+<!-- /screen 2 -->
+			</div>
+			<div class="right"></div>
+			<div class="bottom_left"></div>
+			<div class="bottom"></div>
+			<div class="bottom_right"></div>
+		</div>
+
+		<div class="box box_small" id="box_score_board_1">
+			<div class="top_left"></div>
+			<div class="top"></div>
+			<div class="top_right"></div>
+			<div class="left"></div>
+			<div class="middle">
+				<div class="max_1"></div>
+				<ul id="score_board_1">
+					<li>loading...</li>
+<!--
+					<li>
+						<a href="http://www.facebook.com/{id}" title="{name-full}" target="_blank">
+							<div class="score_image"><img src="http://graph.facebook.com/{id}/picture" width="30" height="30" /></div>
+							<div class="score_name">{name}</div>
+						</a>
+						<div class="score_score">{score}</div>
+					</li>
+-->
+				</ul>
+			</div>
+			<div class="right"></div>
+			<div class="bottom_left"></div>
+			<div class="bottom"></div>
+			<div class="bottom_right"></div>
+		</div>
+
+		<div class="box box_small" id="box_score_board_2">
+			<div class="top_left"></div>
+			<div class="top"></div>
+			<div class="top_right"></div>
+			<div class="left"></div>
+			<div class="middle">
+				<div class="max_2"></div>
+				<ul id="score_board_2">
+					<li>loading...</li>
+				</ul>
+			</div>
+			<div class="right"></div>
+			<div class="bottom_left"></div>
+			<div class="bottom"></div>
+			<div class="bottom_right"></div>
+		</div>
+
+		<div class="box box_small" id="box_score_board_3">
+			<div class="top_left"></div>
+			<div class="top"></div>
+			<div class="top_right"></div>
+			<div class="left"></div>
+			<div class="middle">
+				<div class="max_3"></div>
+				<ul id="score_board_3">
+					<li>loading...</li>
+				</ul>
+			</div>
+			<div class="right"></div>
+			<div class="bottom_left"></div>
+			<div class="bottom"></div>
+			<div class="bottom_right"></div>
+		</div>
+
+<!-- /body -->
+	</body>
+</html>

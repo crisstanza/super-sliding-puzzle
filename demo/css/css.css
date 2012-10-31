@@ -1,0 +1,187 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #F7F7F7;
+	font-family: Verdana;
+	font-size: 10pt;
+	/* border: 1px solid LightGrey; */
+	/* width: 1140px; */
+}
+
+a {
+	text-decoration: none;
+}
+
+#img_logo {
+	position: absolute;
+	width: 642px;
+	height: 311px;
+	left: 65px;
+	top: -311px;
+}
+
+#img_logo_super {
+	position: absolute;
+	width: 434px;
+	height: 196px;
+	left: 180px;
+	top: -196px;
+}
+
+#img_title {
+	position: absolute;
+	width: 364px;
+	height: 67px;
+	left: 170px;
+	top: 120px;
+	display: none;
+}
+
+div#screen_1_buttons {
+	position: absolute;
+	left: 20px;
+	top: 250px;
+	display: none;
+	width: 700px;
+}
+
+a.screen_1_button_1, a.screen_1_button_2, a.screen_1_button_3 {
+	float: left;
+	background-repeat: no-repeat;
+	box-shadow: 0 0 3px 3px #888;
+	border: 1px solid #444;
+}
+a.screen_1_button_1 { width: 100px; height: 100px; margin-left: 28%; background-image: url(../img/level_1_thumb_off.png); }
+a.screen_1_button_2 { width: 125px; height: 100px; margin-left: 24%; background-image: url(../img/level_2_thumb_off.png); }
+a.screen_1_button_3 { width: 150px; height: 100px; margin-left: 17%; background-image: url(../img/level_3_thumb_off.png); }
+
+a.screen_1_button_1:Hover { background-image: url(../img/level_1_thumb.png); }
+a.screen_1_button_2:Hover { background-image: url(../img/level_2_thumb.png); }
+a.screen_1_button_3:Hover { background-image: url(../img/level_3_thumb.png); }
+
+a.screen_1_button_1:Hover, a.screen_1_button_2:Hover, a.screen_1_button_3:Hover { box-shadow: 0 0 6px 6px #444; }
+div#screen_1_button_1, div#screen_1_button_2, div#screen_1_button_3 { float: left; text-align: center; width: 230px; }
+
+div#screen_1_button_1 { padding-top: 60px; }
+div#screen_1_button_2 { padding-top: 0; }
+div#screen_1_button_3 { padding-top: 30px; }
+
+div#main_board_1, div#main_board_2, div#main_board_3 {
+	display: none;
+	margin: auto;
+	box-shadow: 0 0 6px 6px #888;
+}
+
+div#main_board_1 {
+	width: 400px;
+	height: 400px;
+	/* background-image: url(../img/level_1.png); */
+}
+
+div#main_board_2 {
+	width: 500px;
+	height: 400px;
+	/* background-image: url(../img/level_2.png); */
+}
+
+div#main_board_3 {
+	width: 600px;
+	height: 400px;
+	/* background-image: url(../img/level_3.png); */
+}
+
+a#main_back {
+	display: none;
+	float: left;
+	width: 129px;
+	height: 43px;
+	background-image: url(../img/back_off.png);
+	margin-top: 28px;
+}
+a#main_back:Hover {
+	background-image: url(../img/back.png);
+}
+
+div#main_clock {
+	display: none;
+	float: right;
+	line-height: 43px;
+	margin-top: 28px;
+	vertical-align: middle;
+	font-size: 15pt;
+	text-shadow: -2px 2px LightGrey;
+}
+
+div.Piece, div.PieceEmpty_1, div.PieceEmpty_2, div.PieceEmpty_3 {
+	float: left;
+	width: 100px;
+	height: 100px;
+	/* margin: -1px; */
+	position: relative;
+}
+div.Piece {
+	cursor: hand;
+	cursor: pointer;
+	background-image: url(../img/level_1.png);	
+}
+div.Piece_1 { background-image: url(../img/level_1.png); }
+div.Piece_2 { background-image: url(../img/level_2.png); }
+div.Piece_3 { background-image: url(../img/level_3.png); }
+
+div.PieceEmpty_1 { background-image: url(../img/level_1_off.png); }
+div.PieceEmpty_2 { background-image: url(../img/level_2_off.png); }
+div.PieceEmpty_3 { background-image: url(../img/level_3_off.png); }
+
+div.PieceRight {
+	/* border: 1px solid rgba(0, 255, 0, 0.2); */
+}
+div.PieceWrong {
+	/* border: 1px solid rgba(255, 0, 0, 0.2); */
+}
+
+div#max_1, div#max_2, div#max_3 {
+	margin: -10px auto auto auto;
+	background-repeat: no-repeat;
+}
+div.max_1 { width: 239px; height: 42px; background-image: url(../img/max_level_1.png); }
+div.max_2 { width: 279px; height: 44px; background-image: url(../img/max_level_2.png); }
+div.max_3 { width: 243px; height: 46px; background-image: url(../img/max_level_3.png); }
+
+ul {
+	padding: 0;
+}
+li {
+	list-style: none;
+	float: left;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.score_image {
+	float: left;
+	width: 30px;
+	height: 30px;
+}
+.score_name {
+	color: rgb(39, 91, 152);
+	float: left;
+	width: 182px;
+	border-right: 1px solid #E2E2E2;
+	padding: 5px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+.score_score {
+	color: #444;
+	font-weight: bold;
+	float: left;
+	width: 45px;
+	padding: 5px;
+	line-height: 20px;
+	vertical-align: middle;
+	text-align: right;
+}
+
+#box_score_board_1, #box_score_board_2, #box_score_board_3 {
+	display: none;
+}
