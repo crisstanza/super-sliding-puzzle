@@ -554,8 +554,10 @@ function gsbReadCallback(response) {
 		box.fadeOut(DELAY_OBJECTS_CHANGE);		
 	}
 	//
-	if ( response.level == 3 ) {
-		setTimeout(gsbRead, 1000);
+	if ( FacebookStuff.UPDATE_SCORE ) {
+		if ( response.level == 3 ) {
+			setTimeout(gsbRead, 1000);
+		}
 	}
 }
 //

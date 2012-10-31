@@ -7,10 +7,12 @@ FacebookStuff.userID = -1;
 FacebookStuff.userName = null;
 FacebookStuff.accessToken = null;
 FacebookStuff.score = -1;
-FacebookStuff.appUrl = "http://super-sliding-puzzle.herokuapp.com";
+FacebookStuff.appUrl = document.location.protocol+"//super-sliding-puzzle.herokuapp.com";
 
 FacebookStuff.MAX_SCORES = 10; // players
 FacebookStuff.MAX_PLAYER_NAME = 12; // chars
+
+FacebookStuff.UPDATE_SCORE = true; // MUST be true in PRODUCTION
 
 FacebookStuff.authUser = function() {
 	var url = ''+
