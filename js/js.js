@@ -227,7 +227,8 @@ Game.scrumble = function() {
 	var empty = { x: 0, y: 0 };
 	var newEmpty = { x: undefined, y: undefined };
 	//
-	for ( var i = 1 ; i >= 0 ; i-- ) {
+	var times = 255;
+	for ( var i = times ; i >= 0 ; i-- ) {
 		newEmpty.x = empty.x + (Math.floor(Math.random()*2) == 0 ? -1 : 1);
 		newEmpty.y = empty.y;
 		//
@@ -407,14 +408,25 @@ var CURRENT_LEVEL = 0;
 //
 //
 function animateLogo(screen) {
+	var imgLogoSuper = $('#img_logo_super');
 	var imgLogo = $('#img_logo');
 	//
 	if ( screen == SCREEN_OPENING ) {
+		imgLogoSuper.animate(
+			{ left: 180, top: 180, width: 434, height: 196 },
+			{ duration: DELAY_OBJECTS_CHANGE/2 }
+		);
+		/*
 		imgLogo.animate(
 			{ left: 65, top: 125, width: 642, height: 311 },
 			{ duration: DELAY_OBJECTS_CHANGE }
-		);		
+		);
+		*/
 	} else if ( screen == SCREEN_SELECT_LEVEL ) {
+		imgLogoSuper.animate(
+			{ left: 125, top: 35, width: 434/8, height: 196/8 },
+			{ duration: DELAY_OBJECTS_CHANGE }
+		);		
 		imgLogo.animate(
 			{ left: 50, top: 55, width: 642/5, height: 311/5 },
 			{ duration: DELAY_OBJECTS_CHANGE }
@@ -425,6 +437,7 @@ function animateLogo(screen) {
 function goToScreen(screen) {
 	var imgTitle = $('#img_title');
 	var imgLogo = $('#img_logo');
+	var imgLogoSuper = $('#img_logo_super');
 	var panelButtons = $('#screen_1_buttons');
 	var mainBack = $('#main_back');
 	var mainClock = $('#main_clock');
@@ -437,6 +450,7 @@ function goToScreen(screen) {
 	} else if ( screen == SCREEN_SELECT_LEVEL ) {
 		animateLogo(screen);
 		imgTitle.fadeIn(DELAY_OBJECTS_CHANGE);
+		imgLogoSuper.fadeIn(DELAY_OBJECTS_CHANGE);
 		imgLogo.fadeIn(DELAY_OBJECTS_CHANGE);
 		panelButtons.fadeIn(DELAY_OBJECTS_CHANGE * 2);
 		$('#main_board_1').fadeOut(DELAY_OBJECTS_CHANGE);
@@ -446,6 +460,7 @@ function goToScreen(screen) {
 		mainClock.fadeOut(DELAY_OBJECTS_CHANGE);
 	} else if ( screen == SCREEN_GAME ) {
 		imgTitle.fadeOut(DELAY_OBJECTS_CHANGE);
+		imgLogoSuper.fadeOut(DELAY_OBJECTS_CHANGE);
 		imgLogo.fadeOut(DELAY_OBJECTS_CHANGE);
 		panelButtons.fadeOut(DELAY_OBJECTS_CHANGE);
 		$('#main_board_'+CURRENT_LEVEL).fadeIn(DELAY_OBJECTS_CHANGE);

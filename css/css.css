@@ -20,6 +20,14 @@ a {
 	top: -311px;
 }
 
+#img_logo_super {
+	position: absolute;
+	width: 434px;
+	height: 196px;
+	left: 180px;
+	top: -196px;
+}
+
 #img_title {
 	position: absolute;
 	width: 364px;
